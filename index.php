@@ -43,6 +43,10 @@ if (isset($_POST['btnSubmit'])) {
 </head>
 
 <body>
+  <div class="d-flex py-2 px-4 bg-light bg-gradient">
+    <h3>Fertilab</h3>
+
+  </div>
   <div class="p-2 p-md-4 container d-flex justify-content-center">
     <div class="d-flex justify-content-center mt-4">
       <form method="POST">
