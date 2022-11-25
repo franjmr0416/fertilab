@@ -4,13 +4,16 @@ require 'database.php';
 $db = new Database();
 $connection = $db->connection();
 
-if (isset($_POST['id'])) {
-} else {
-  $nombre = $_POST['nombre'];
-  $descripcion = $_POST['descripcion'];
-  $precio = $_POST['precio'];
-  $fecha_creacion = $_POST['fecha_creacion'];
+$nombre = $_POST['nombre'];
+$descripcion = $_POST['descripcion'];
+$precio = $_POST['precio'];
+$fecha_creacion = $_POST['fecha_creacion'];
 
+if ($_POST['id'] != 0) {
+  $id = $_POST['id'];
+  $query = $connection->prepare("UPDATE productos SET nombre=?, descripcion=?, precio=?, fecha_creacion=? WHERE id =?");
+  $result = $query->execute(array($nombre, $descripcion, $precio, $fecha_creacion, $id));
+} else {
   $query = $connection->prepare("INSERT INTO productos(nombre, descripcion, precio, fecha_creacion) 
   VALUES(:nom, :descr, :pre, :fech)");
   $result = $query->execute(array('nom' => $nombre, 'descr' => $descripcion, 'pre' => $precio, 'fech' => $fecha_creacion));

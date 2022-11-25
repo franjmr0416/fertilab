@@ -30,14 +30,16 @@ $result = $getProductos->fetchAll(PDO::FETCH_ASSOC);
       </div>
     </div>
     <div class="row p-4">
-      <table class="table table-border">
-        <thead>
+      <table class="table table-striped">
+        <thead class="table-primary">
           <tr>
             <th>Id</th>
             <th>Nombre</th>
             <th>Descripción</th>
             <th>Precio</th>
             <th>Fecha creación</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -49,9 +51,12 @@ $result = $getProductos->fetchAll(PDO::FETCH_ASSOC);
             echo '<td>' . $row['descripcion'] . '</td>';
             echo '<td>' . $row['precio'] . '</td>';
             echo '<td>' . $row['fecha_creacion'] . '</td>';
+            echo '<td>' . '<a href="addProduct.php?id=' . $row['id'] . '" class="btn btn-secondary">Editar</a>' . '</td>';
+            echo '<td>' . '<a href="delete.php?id=' . $row['id'] . '" class="btn btn-danger">Eliminar</a>' . '</td>';
             echo '</tr>';
           }
           ?>
+
         </tbody>
       </table>
     </div>
