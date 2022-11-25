@@ -26,7 +26,7 @@ $result = $getProductos->fetchAll(PDO::FETCH_ASSOC);
         <h1>Productos</h1>
       </div>
       <div class="col-auto">
-        <a href="#" class="btn btn-primary w-auto">Nuevo</a>
+        <a href="addProduct.php" class="btn btn-primary w-auto">Nuevo</a>
       </div>
     </div>
     <div class="row p-4">
