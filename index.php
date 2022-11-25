@@ -38,7 +38,8 @@ $result = $getProductos->fetchAll(PDO::FETCH_ASSOC);
             <th>Descripción</th>
             <th>Precio</th>
             <th>Fecha creación</th>
-            <th></th>
+            <th>
+            </th>
             <th></th>
           </tr>
         </thead>
