@@ -26,6 +26,13 @@ $result = $getProductos->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
+  <div class="d-flex justify-content-between">
+    <h3>Fertilab</h3>
+    <div>
+      <span><?php echo 'Bienvenido ' . $usuarioLogeado ?></span>
+      <a href="logout.php" class="btn btn-warning">Logout</a>
+    </div>
+  </div>
   <div class="p-4">
     <div class="row align-items-center">
       <div class="col">
