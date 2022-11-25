@@ -25,7 +25,7 @@ $today = date("Y-m-d");
     </div>
     <div class="container mt-2">
       <div class="abs-center">
-        <form action="save.php" method="POST" class="form">
+        <form action="services/upsert.php" method="POST" class="form">
           <div class="form-group mt-2">
             <label for="nombre" class="form-label">Nombre</label>
             <input type="text" class="form-control" id="nombre" placeholder="nombre" name="nombre" required>
@@ -38,9 +38,9 @@ $today = date("Y-m-d");
             <label for="precio" class="form-label">Precio</label>
             <input type="number" class="form-control" id="precio" placeholder="$00.0" name="precio" required>
           </div>
-          <input type="hidden" class="form-control" id="fecha_creacion" name="fecha_creacion">
+          <input type="hidden" value="<?php echo $today; ?>" id="fecha_creacion" name="fecha_creacion">
           <div class="mt-2">
-            <button value="<?php echo $today; ?>" type="submit" class="btn btn-success w-auto">Agregar</button>
+            <button type="submit" class="btn btn-success w-auto">Agregar</button>
           </div>
         </form>
       </div>
