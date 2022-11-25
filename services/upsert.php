@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (isset($_SESSION['nombre'])) {
+  $usuarioLogeado = $_SESSION['nombre'];
+} else {
+  header('location: ../index.php');
+}
 require 'database.php';
 
 $db = new Database();
@@ -44,7 +50,7 @@ if ($_POST['id'] != 0) {
     </div>
     <div class="row">
       <div class="col-auto">
-        <a href="../index.php" class="btn btn-secondary w-auto">Ver productos</a>
+        <a href="../productos.php" class="btn btn-secondary w-auto">Ver productos</a>
       </div>
       <div class="col-auto">
         <a href="../addProduct.php" class="btn btn-primary w-auto">Agregar producto</a>

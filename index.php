@@ -1,11 +1,34 @@
 <?php
+session_start();
+if (isset($_SESSION['nombre'])) {
+  header('location: productos.php');
+}
+
 require 'services/database.php';
 $db = new Database();
 $connection = $db->connection();
-$getProductos = $connection->query("SELECT id, nombre, descripcion, precio, fecha_creacion FROM productos order by id asc");
 
-$getProductos->execute();
-$result = $getProductos->fetchAll(PDO::FETCH_ASSOC);
+if (isset($_POST['btnSubmit'])) {
+  $emailSubmited = $_POST['email'];
+  $claveSubmited = $_POST['clave'];
+
+  $query = $connection->prepare("SELECT nombre, puesto, email FROM usuarios WHERE email = :email AND clave = :clave");
+  $query->execute(['email' => $emailSubmited, 'clave' => $claveSubmited]);
+  $result = $query->fetch(PDO::FETCH_ASSOC);
+
+  if (!isset($_SESSION['nombre'])) {
+    if ($result) {
+      $nombre = $result['nombre'];
+      $puesto = $result['puesto'];
+
+      $_SESSION['nombre'] = $nombre;
+      header("location: productos.php");
+    } else {
+      echo 'Usuario y/o contraseña incorrectos';
+    }
+  }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,48 +43,25 @@ $result = $getProductos->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
-  <div class="p-4">
-    <div class="row align-items-center">
-      <div class="col">
-        <h1>Productos</h1>
-      </div>
-      <div class="col-auto">
-        <a href="addProduct.php" class="btn btn-primary w-auto">Nuevo</a>
-      </div>
-    </div>
-    <div class="row p-4">
-      <table class="table table-striped">
-        <thead class="table-primary">
-          <tr>
-            <th>Id</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Precio</th>
-            <th>Fecha creación</th>
-            <th>
-            </th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-          foreach ($result as $row) {
-            echo '<tr>';
-            echo '<td>' . $row['id'] . '</td>';
-            echo '<td>' . $row['nombre'] . '</td>';
-            echo '<td>' . $row['descripcion'] . '</td>';
-            echo '<td>' . $row['precio'] . '</td>';
-            echo '<td>' . $row['fecha_creacion'] . '</td>';
-            echo '<td>' . '<a href="addProduct.php?id=' . $row['id'] . '" class="btn btn-secondary">Editar</a>' . '</td>';
-            echo '<td>' . '<a href="delete.php?id=' . $row['id'] . '" class="btn btn-danger">Eliminar</a>' . '</td>';
-            echo '</tr>';
-          }
-          ?>
+  <div class="p-2 p-md-4 container d-flex justify-content-center">
+    <div class="d-flex justify-content-center mt-4">
+      <form method="POST">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="email">Email</label>
+          <input type="email" id="email" class="form-control" name="email" />
+        </div>
 
-        </tbody>
-      </table>
+        <div class="form-outline mb-4">
+          <label class="form-label" for="clave">Contraseña</label>
+          <input type="password" id="clave" class="form-control" name="clave" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mb-4" name="btnSubmit" value="btnSubmit">Login</button>
+      </form>
+
     </div>
+
   </div>
 </body>
+
 
 </html>

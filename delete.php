@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (isset($_SESSION['nombre'])) {
+  $usuarioLogeado = $_SESSION['nombre'];
+} else {
+  header('location: index.php');
+}
 require 'services/database.php';
 $db = new Database();
 $connection = $db->connection();
@@ -34,7 +40,7 @@ if ($query->execute([$id])) {
     </div>
     <div class="row">
       <div class="col-auto">
-        <a href="index.php" class="btn btn-secondary w-auto">Ver productos</a>
+        <a href="productos.php" class="btn btn-secondary w-auto">Ver productos</a>
       </div>
     </div>
   </div>

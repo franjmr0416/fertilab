@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (isset($_SESSION['nombre'])) {
+  $usuarioLogeado = $_SESSION['nombre'];
+} else {
+  header('location: index.php');
+}
 require 'services/database.php';
 
 $today = date("Y-m-d");
