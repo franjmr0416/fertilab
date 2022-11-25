@@ -26,7 +26,7 @@ $result = $getProductos->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
-  <div class="d-flex justify-content-between">
+  <div class="d-flex justify-content-between py-2 px-4 bg-light bg-gradient">
     <h3>Fertilab</h3>
     <div>
       <span><?php echo 'Bienvenido ' . $usuarioLogeado ?></span>
